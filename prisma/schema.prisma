@@ -26,6 +26,7 @@ enum ItemType {
 
 model Items {
   id          Int      @id @default(autoincrement())
+  userId      Int      @default(0)
   type        ItemType
   name        String
   description String?

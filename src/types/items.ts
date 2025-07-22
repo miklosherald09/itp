@@ -14,3 +14,12 @@ export type AddItemInputT = {
   price: string;
   duration: string;
 };
+
+export type AddParamsT = {
+  type: string;
+  userId: number;
+  name: string;
+  description?: string;
+  price?: number;
+  duration?: number;
+};

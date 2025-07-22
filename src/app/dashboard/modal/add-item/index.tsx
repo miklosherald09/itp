@@ -2,7 +2,7 @@
 
 import { countAtom } from "@/jotai/atoms/countAtoms";
 import { useAddItem } from "@/services/items";
-import { AddItemInputT, ItemT } from "@/types/items";
+import { AddItemInputT, AddParamsT, ItemT } from "@/types/items";
 import { Box, Modal, Typography } from "@mui/material";
 import { useAtom } from "jotai";
 import { FormProvider, useForm } from "react-hook-form";
@@ -13,6 +13,8 @@ import { PriceField } from "./fields/price";
 import { DurationField } from "./fields/duration";
 import { CancelButton } from "./buttons/cancel";
 import { SubmitButton } from "./buttons/submit";
+import { useGetItems } from "../../services/items";
+import { useSession } from "next-auth/react";
 
 export const ItemFormModal = () => {
   const methods = useForm({
@@ -26,6 +28,7 @@ export const ItemFormModal = () => {
   });
 
   const [open, setOpen] = useAtom(countAtom);
+  const session = useSession()
 
   const handleClose = () => {
     setOpen(false);
@@ -33,17 +36,18 @@ export const ItemFormModal = () => {
   };
 
   const addItem = useAddItem();
+  const { refetch } = useGetItems();
 
-  const onSubmit = (data: AddItemInputT) => {
-    console.log("Form Data:", data);
-    const params: ItemT = {
+  const onSubmit = async (data: AddItemInputT) => {
+    const params: AddParamsT = {
       type: data?.type,
       name: data?.name,
       price: Number(data?.price),
+      userId: ,
     };
-    addItem.mutateAsync(params);
-    handleClose();
+    await addItem.mutateAsync(params);
     refetch();
+    handleClose();
   };
 
   return (
