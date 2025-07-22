@@ -9,15 +9,23 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@emotion/cache": "^11.14.0",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",
     "@fontsource/roboto": "^5.2.6",
     "@mui/icons-material": "^7.2.0",
     "@mui/material": "^7.2.0",
+    "@mui/material-nextjs": "^7.2.0",
+    "@prisma/client": "^6.12.0",
+    "@tanstack/react-query": "^5.83.0",
+    "@tanstack/react-query-devtools": "^5.83.0",
+    "axios": "^1.10.0",
+    "jotai": "^2.12.5",
     "next": "15.4.2",
     "next-auth": "^4.24.11",
     "react": "19.1.0",
-    "react-dom": "19.1.0"
+    "react-dom": "19.1.0",
+    "react-hook-form": "^7.60.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
@@ -28,6 +36,7 @@
     "eslint": "^9",
     "eslint-config-next": "15.4.2",
     "eslint-config-prettier": "^10.1.8",
+    "prisma": "^6.12.0",
     "tailwindcss": "^4",
     "typescript": "^5"
   }

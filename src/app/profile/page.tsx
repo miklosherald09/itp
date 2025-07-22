@@ -1,21 +1,23 @@
-"use client";
+import { prisma } from "@/lib/prisma";
+import Profile from "./Profile";
+import { Box } from "@mui/material";
+import { UsersT } from "@/types";
 
-import { SignInButton } from "@/components/AuthButton";
-import { useSession } from "next-auth/react";
-
-export default function ProfilePage() {
-  const { data: session } = useSession();
-
-  if (!session) {
-    return <SignInButton />;
-  }
+export default async function ProfilePage() {
+  const users = await prisma.users.findMany();
 
   return (
     <div>
-      <h1>Profile</h1>
-      <p>Name: {session.user?.name}</p>
-      <p>Email: {session.user?.email}</p>
-      <SignInButton />
+      {users?.map((item: UsersT, i: number) => {
+        return (
+          <Box key={i}>
+            <p>{item?.id}</p>
+            <p>{item?.name}</p>
+            <p>{item?.email}</p>
+          </Box>
+        );
+      })}
+      <Profile />
     </div>
   );
 }
