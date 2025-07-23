@@ -1,55 +1,45 @@
 "use client";
 
-import { addItemAtom } from "@/jotai/atoms/modal";
+import { tradeAtom } from "@/jotai/atoms/modal";
 import { useAddItem, useGetUserItems } from "@/services/items";
-import { AddItemInputT, AddItemsParamsT } from "@/types/items";
+import { AddItemsParamsT, TradeInputT, TradeParamT } from "@/types/items";
 import { Box, Modal, Typography } from "@mui/material";
 import { useAtom, useAtomValue } from "jotai";
 import { FormProvider, useForm } from "react-hook-form";
-import { NameField } from "./fields/name";
-import { TypeField } from "./fields/type";
-import { DescriptionField } from "./fields/description";
-import { PriceField } from "./fields/price";
-import { DurationField } from "./fields/duration";
+import { NotesField } from "./fields/notes";
+import { ItemsField } from "./fields/items";
 import { CancelButton } from "./buttons/cancel";
 import { SubmitButton } from "./buttons/submit";
 import { userAtom } from "@/jotai/atoms/users";
 
-export const ItemFormModal = () => {
+export const TradeModal = () => {
   const methods = useForm({
     defaultValues: {
-      type: "PRODUCT",
-      name: "",
-      description: "",
-      price: "",
-      duration: "",
+      items: "",
+      notes: "",
+      coins: "",
     },
   });
 
-  const [open, setOpen] = useAtom(addItemAtom);
+  const [open, setOpen] = useAtom(tradeAtom);
 
   const handleClose = () => {
     setOpen(false);
     methods.reset();
   };
 
-  const addItem = useAddItem();
+  const tradeItem = useTradeItem();
   const user = useAtomValue(userAtom);
   const { refetch } = useGetUserItems(user?.id);
 
-  const onSubmit = async (data: AddItemInputT) => {
-    const userString = localStorage?.getItem("user");
-    if (!userString) return;
-
-    const user = JSON.parse(userString);
-    const params: AddItemsParamsT = {
-      type: data?.type,
-      name: data?.name,
-      description: data?.description,
-      price: Number(data?.price),
-      userId: user?.id,
+  const onSubmit = async (data: TradeInputT) => {
+    const params: TradeParamT = {
+      coins: "1",
+      notes: "2",
+      userId: 1,
+      itemId: 1,
     };
-    await addItem.mutateAsync(params);
+    await tradeItem.mutateAsync(params);
     refetch();
     handleClose();
   };
@@ -62,24 +52,15 @@ export const ItemFormModal = () => {
           sx={{ color: "black", mb: 2 }}
           className="mb-20"
         >
-          Add New Item
+          Select Item you want to offer
         </Typography>
         <FormProvider {...methods}>
           <form onSubmit={methods.handleSubmit(onSubmit)}>
             <Box sx={{ mt: 1 }}>
-              <TypeField />
+              <ItemsField />
             </Box>
             <Box sx={{ mt: 1 }}>
-              <NameField />
-            </Box>
-            <Box sx={{ mt: 1 }}>
-              <DescriptionField />
-            </Box>
-            <Box sx={{ mt: 1 }}>
-              <PriceField />
-            </Box>
-            <Box sx={{ mt: 1 }}>
-              <DurationField />
+              <NotesField />
             </Box>
             <Box sx={{ mt: 2 }} className="flex justify-end space-x-2">
               <CancelButton />

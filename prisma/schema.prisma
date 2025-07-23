@@ -6,7 +6,7 @@
 
 generator client {
   provider        = "prisma-client-js"
-  previewFeatures = ["fullTextSearchPostgres"]
+  previewFeatures = ["fullTextSearchPostgres", "relationJoins"]
 }
 
 datasource db {
@@ -14,10 +14,11 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Users {
+model User {
   id    Int     @id @default(autoincrement())
   email String  @unique
   name  String?
+  Offer Offer[]
 }
 
 enum ItemType {
@@ -25,7 +26,7 @@ enum ItemType {
   SERVICE
 }
 
-model Items {
+model Item {
   id          Int      @id @default(autoincrement())
   userId      Int      @default(0)
   type        ItemType
@@ -36,4 +37,29 @@ model Items {
   level       Int? // For skills/talents (1-10 proficiency scale)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+  Offers      Offer[]
+}
+
+enum OfferStatus {
+  PENDING
+  ACCEPTED
+}
+
+model Offer {
+  id        Int         @id @default(autoincrement())
+  itemId    Int         @default(0)
+  item      Item        @relation(fields: [itemId], references: [id])
+  userId    Int
+  user      User        @relation(fields: [userId], references: [id])
+  status    OfferStatus
+  notes     String?
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+}
+
+model OffersItem {
+  id        Int      @id @default(autoincrement())
+  itemId    Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

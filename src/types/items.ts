@@ -1,4 +1,5 @@
 export type ItemT = {
+  id: number;
   type: string;
   name: string;
   description?: string;
@@ -22,4 +23,18 @@ export type AddItemsParamsT = {
   description?: string;
   price?: number;
   duration?: number;
+};
+
+export type TradeInputT = {
+  coins: string;
+  notes: string;
+  items?: string;
+};
+
+export type TradeParamT = {
+  coins: string;
+  notes: string;
+  items?: string;
+  userId: number;
+  itemId: number;
 };

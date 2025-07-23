@@ -3,9 +3,8 @@
 import { Box, Button, Grid, Typography } from "@mui/material";
 import Image from "next/image";
 import { ItemT } from "@/types/items";
-import { useAtom } from "jotai";
-import { activeAtom } from "./atoms";
 import { darkMode } from "@/utility/pallete";
+import { useRouter } from "next/navigation";
 
 type Props = {
   item: ItemT;
@@ -13,17 +12,16 @@ type Props = {
 
 export default function Item(props: Props) {
   const { item } = props;
+  const router = useRouter();
 
-  const [items, setItem] = useAtom(activeAtom);
+  const handleClick = () => {
+    console.log("itemx", item);
+    router.push(`/item/${item?.id}`);
+  };
 
   return (
     <Grid size={{ xs: 4, sm: 3, md: 2, lg: 1 }}>
-      <Button
-        onClick={() => {
-          setItem([...items, item]);
-        }}
-        sx={{ width: "100%" }}
-      >
+      <Button onClick={handleClick} sx={{ width: "100%" }}>
         <Box
           sx={{
             width: "100%",

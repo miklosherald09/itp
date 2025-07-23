@@ -3,7 +3,7 @@ import Divider from "../components/divider";
 import TopMenu from "../components/menu";
 import Items from "./items";
 import { Box } from "@mui/material";
-import ActiveItems from "../components/active";
+import ActiveItems from "./active";
 
 export default function Page() {
   return (
