@@ -1,7 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import Profile from "./Profile";
 import { Box } from "@mui/material";
-import { UsersT } from "@/types";
+import { UsersT } from "@/types/user";
 
 export default async function ProfilePage() {
   const users = await prisma.users.findMany();

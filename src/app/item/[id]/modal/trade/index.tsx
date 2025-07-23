@@ -2,7 +2,7 @@
 
 import { tradeAtom } from "@/jotai/atoms/modal";
 import { useAddItem, useGetUserItems } from "@/services/items";
-import { AddItemsParamsT, TradeInputT, TradeParamT } from "@/types/items";
+import { AddItemsParamsT, TradeInputT, TradeParamT } from "@/types/item";
 import { Box, Modal, Typography } from "@mui/material";
 import { useAtom, useAtomValue } from "jotai";
 import { FormProvider, useForm } from "react-hook-form";

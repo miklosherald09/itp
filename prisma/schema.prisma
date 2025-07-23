@@ -32,12 +32,12 @@ model Item {
   type        ItemType
   name        String
   description String?
-  price       Float? // For products/services
-  duration    Int? // For services (in minutes)
-  level       Int? // For skills/talents (1-10 proficiency scale)
+  price       Float?
+  duration    Int?
+  level       Int?
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
-  Offers      Offer[]
+  Offer       Offer[]
 }
 
 enum OfferStatus {
@@ -46,15 +46,16 @@ enum OfferStatus {
 }
 
 model Offer {
-  id        Int         @id @default(autoincrement())
-  itemId    Int         @default(0)
-  item      Item        @relation(fields: [itemId], references: [id])
+  id        Int          @id @default(autoincrement())
+  itemId    Int          @default(0)
+  item      Item         @relation(fields: [itemId], references: [id])
   userId    Int
-  user      User        @relation(fields: [userId], references: [id])
-  status    OfferStatus
+  user      User         @relation(fields: [userId], references: [id])
+  status    OfferStatus? @default(PENDING)
   notes     String?
-  createdAt DateTime    @default(now())
-  updatedAt DateTime    @updatedAt
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
+  OfferItem OfferItem[]
 }
 
 model OfferItem {
@@ -62,4 +63,6 @@ model OfferItem {
   itemId    Int      @default(0)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  offerId   Int?
+  Offer     Offer?   @relation(fields: [offerId], references: [id])
 }

@@ -7,6 +7,10 @@ import { addItemAtom } from "@/jotai/atoms/modal";
 export default function DesktopNav() {
   const setShowAdd = useSetAtom(addItemAtom);
 
+  const path = window.location.pathname;
+
+  if (!path?.match("/dashboard")) return <></>;
+
   return (
     <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" }, ml: 4 }}>
       <Button

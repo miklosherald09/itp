@@ -2,7 +2,7 @@
 
 import { Box, Button, Grid, Typography } from "@mui/material";
 import Image from "next/image";
-import { ItemT } from "@/types/items";
+import { ItemT } from "@/types/item";
 import { darkMode } from "@/utility/pallete";
 import { useRouter } from "next/navigation";
 

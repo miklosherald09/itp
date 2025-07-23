@@ -10,11 +10,11 @@ export const NotesField = () => {
     <Controller
       name="notes"
       control={control}
-      rules={{ required: "Name is required" }}
+      rules={{ required: false }}
       render={({ field, fieldState }) => (
         <TextField
           {...field}
-          label="Name"
+          label="Notes"
           fullWidth
           error={!!fieldState.error}
           helperText={fieldState?.error?.message}
