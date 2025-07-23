@@ -1,18 +1,14 @@
-import { ItemFormModal } from "./modal/add-item";
 import Divider from "../components/divider";
-import TopMenu from "../components/menu";
 import Items from "./items";
+import TopMenu from "./menu";
 import { Box } from "@mui/material";
-import ActiveItems from "../components/active";
 
 export default function Page() {
   return (
     <Box>
       <Divider />
       <TopMenu />
-      <ActiveItems />
       <Items />
-      <ItemFormModal />
     </Box>
   );
 }

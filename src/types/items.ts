@@ -15,7 +15,7 @@ export type AddItemInputT = {
   duration: string;
 };
 
-export type AddParamsT = {
+export type AddItemsParamsT = {
   type: string;
   userId: number;
   name: string;

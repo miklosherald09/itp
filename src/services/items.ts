@@ -1,16 +1,15 @@
 import { client } from "@/axios/client";
-import { ItemT } from "@/types/items";
-import { Items } from "@prisma/client";
+import { AddItemsParamsT, ItemT } from "@/types/items";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { AxiosResponse } from "axios";
 
 export const useAddItem = () => {
   return useMutation({
-    mutationFn: (params: any) => addItem(params),
+    mutationFn: (params: AddItemsParamsT) => addItem(params),
   });
 };
 
-export const addItem = (params) => {
+export const addItem = (params: AddItemsParamsT) => {
   const url = `/api/items`;
   return client({
     url,
@@ -19,7 +18,7 @@ export const addItem = (params) => {
   });
 };
 
-export const useGetUserItems = (id: number | null) => {
+export const useGetUserItems = (id: number | null | undefined) => {
   return useQuery({
     queryKey: ["get-user-items", id],
     queryFn: () => getUserItems(id),
@@ -27,11 +26,28 @@ export const useGetUserItems = (id: number | null) => {
 };
 
 export const getUserItems = (
-  id: number | null
+  id: number | null | undefined
 ): Promise<AxiosResponse<ItemT[]>> | null => {
   if (!id) return null;
 
   const url = `/api/items/user/${id}`;
+  return client({
+    url,
+    method: "GET",
+  });
+};
+
+export const useSearchItems = (search: string) => {
+  return useQuery({
+    queryKey: ["get-search-items", search],
+    queryFn: () => getSearchItems(search),
+  });
+};
+
+export const getSearchItems = (
+  search: string
+): Promise<AxiosResponse<ItemT[]>> | null => {
+  const url = `/api/items/search/${search}`;
   return client({
     url,
     method: "GET",

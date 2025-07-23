@@ -7,7 +7,7 @@ import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
 import { Container } from "@mui/material";
 import { useAtomValue } from "jotai";
-import { activeAtom } from "../items/atoms";
+import { activeAtom } from "../../dashboard/items/atoms";
 
 // const items: ListItem[] = [
 //   { id: 1, name: "T-Shirts", imageUrl: "https://i.pravatar.cc/150?img=1" },
@@ -23,7 +23,7 @@ export default function ActiveItems() {
   const items = useAtomValue(activeAtom);
 
   return (
-    <Container maxWidth="lg">
+    <Container maxWidth="xl">
       <Box
         sx={{
           overflowX: "auto", // Enable horizontal scrolling

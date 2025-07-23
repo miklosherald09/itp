@@ -17,7 +17,7 @@ export default function Item(props: Props) {
   const [items, setItem] = useAtom(activeAtom);
 
   return (
-    <Grid size={{ xs: 3, sm: 2, md: 1, lg: 1 }}>
+    <Grid size={{ xs: 4, sm: 3, md: 2, lg: 1 }}>
       <Button
         onClick={() => {
           setItem([...items, item]);
