@@ -7,7 +7,7 @@ export async function GET(
 ) {
   try {
     const { id } = await params;
-    const response = await prisma.items.findMany({
+    const response = await prisma.item.findMany({
       where: { userId: Number(id) },
     });
 

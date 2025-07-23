@@ -16,7 +16,7 @@ export const authOptions = {
     async signIn({ account, profile }: { account: Account; profile: Profile }) {
       if (!profile?.email) throw new Error("no profle");
 
-      await prisma.users.upsert({
+      await prisma.user.upsert({
         where: {
           email: profile.email,
         },

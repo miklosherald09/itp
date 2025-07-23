@@ -3,6 +3,8 @@ import { AddItemsParamsT, ItemT } from "@/types/items";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { AxiosResponse } from "axios";
 
+/*--------------------------------------------------*/
+
 export const useAddItem = () => {
   return useMutation({
     mutationFn: (params: AddItemsParamsT) => addItem(params),
@@ -10,13 +12,15 @@ export const useAddItem = () => {
 };
 
 export const addItem = (params: AddItemsParamsT) => {
-  const url = `/api/items`;
+  const url = `/api/item`;
   return client({
     url,
     method: "POST",
     data: params,
   });
 };
+
+/*--------------------------------------------------*/
 
 export const useGetUserItems = (id: number | null | undefined) => {
   return useQuery({
@@ -30,12 +34,14 @@ export const getUserItems = (
 ): Promise<AxiosResponse<ItemT[]>> | null => {
   if (!id) return null;
 
-  const url = `/api/items/user/${id}`;
+  const url = `/api/item/user/${id}`;
   return client({
     url,
     method: "GET",
   });
 };
+
+/*--------------------------------------------------*/
 
 export const useSearchItems = (search: string) => {
   return useQuery({
@@ -47,12 +53,14 @@ export const useSearchItems = (search: string) => {
 export const getSearchItems = (
   search: string
 ): Promise<AxiosResponse<ItemT[]>> | null => {
-  const url = `/api/items/search/${search}`;
+  const url = `/api/item/search/${search}`;
   return client({
     url,
     method: "GET",
   });
 };
+
+/*--------------------------------------------------*/
 
 export const useGetItem = (id: number) => {
   return useQuery({
@@ -62,7 +70,7 @@ export const useGetItem = (id: number) => {
 };
 
 export const getItem = (id: number): Promise<AxiosResponse<ItemT>> | null => {
-  const url = `/api/items/${id}`;
+  const url = `/api/item/${id}`;
   return client({
     url,
     method: "GET",

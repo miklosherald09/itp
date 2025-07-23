@@ -4,7 +4,7 @@ import { prisma } from "@/lib/prisma";
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const response = await prisma.items.create({ data: body });
+    const response = await prisma.item.create({ data: body });
 
     return NextResponse.json(response);
   } catch (error) {

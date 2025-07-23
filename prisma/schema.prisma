@@ -57,7 +57,7 @@ model Offer {
   updatedAt DateTime    @updatedAt
 }
 
-model OffersItem {
+model OfferItem {
   id        Int      @id @default(autoincrement())
   itemId    Int      @default(0)
   createdAt DateTime @default(now())

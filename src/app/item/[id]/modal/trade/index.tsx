@@ -28,7 +28,7 @@ export const TradeModal = () => {
     methods.reset();
   };
 
-  const tradeItem = useTradeItem();
+  // const tradeItem = useTradeItem();
   const user = useAtomValue(userAtom);
   const { refetch } = useGetUserItems(user?.id);
 
@@ -39,7 +39,7 @@ export const TradeModal = () => {
       userId: 1,
       itemId: 1,
     };
-    await tradeItem.mutateAsync(params);
+    // await tradeItem.mutateAsync(params);
     refetch();
     handleClose();
   };

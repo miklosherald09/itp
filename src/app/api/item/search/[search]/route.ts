@@ -13,7 +13,7 @@ export async function GET(
     const trimed = decoded.replace(/ {2,}/g, " ").trim();
     const concat = trimed?.replace(" ", " | ");
 
-    const response = await prisma.items.findMany({
+    const response = await prisma.item.findMany({
       where: { name: { search: concat } },
     });
 
