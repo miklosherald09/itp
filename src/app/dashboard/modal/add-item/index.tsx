@@ -1,10 +1,10 @@
 "use client";
 
-import { countAtom } from "@/jotai/atoms/countAtoms";
-import { useAddItem } from "@/services/items";
-import { AddItemInputT, AddParamsT, ItemT } from "@/types/items";
+import { addItemAtom } from "@/jotai/atoms/modal";
+import { useAddItem, useGetUserItems } from "@/services/items";
+import { AddItemInputT, AddParamsT } from "@/types/items";
 import { Box, Modal, Typography } from "@mui/material";
-import { useAtom } from "jotai";
+import { useAtom, useAtomValue } from "jotai";
 import { FormProvider, useForm } from "react-hook-form";
 import { NameField } from "./fields/name";
 import { TypeField } from "./fields/type";
@@ -14,7 +14,7 @@ import { DurationField } from "./fields/duration";
 import { CancelButton } from "./buttons/cancel";
 import { SubmitButton } from "./buttons/submit";
 import { useGetItems } from "../../services/items";
-import { useSession } from "next-auth/react";
+import { userAtom } from "@/jotai/atoms/users";
 
 export const ItemFormModal = () => {
   const methods = useForm({
@@ -27,8 +27,7 @@ export const ItemFormModal = () => {
     },
   });
 
-  const [open, setOpen] = useAtom(countAtom);
-  const session = useSession()
+  const [open, setOpen] = useAtom(addItemAtom);
 
   const handleClose = () => {
     setOpen(false);
@@ -36,14 +35,19 @@ export const ItemFormModal = () => {
   };
 
   const addItem = useAddItem();
-  const { refetch } = useGetItems();
+  const user = useAtomValue(userAtom);
+  const { refetch } = useGetUserItems(user?.id);
 
   const onSubmit = async (data: AddItemInputT) => {
+    const userString = localStorage?.getItem("user");
+    if (!userString) return;
+
+    const user = JSON.parse(userString);
     const params: AddParamsT = {
       type: data?.type,
       name: data?.name,
       price: Number(data?.price),
-      userId: ,
+      userId: user?.id,
     };
     await addItem.mutateAsync(params);
     refetch();

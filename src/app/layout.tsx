@@ -5,7 +5,6 @@ import { JotaiProvider } from "@/jotai/provider";
 import { ReactQueryProvider } from "@/tanstack/provider";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
 import { CssBaseline, ThemeProvider } from "@mui/material";
-import { Montserrat } from "next/font/google";
 import { montserrat } from "@/utility/font";
 import theme from "@/mui/theme";
 

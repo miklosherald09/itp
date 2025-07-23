@@ -20,7 +20,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
 import AddIcon from "@mui/icons-material/Add";
 import { useAtom } from "jotai";
-import { countAtom } from "@/jotai/atoms/countAtoms";
+import { countAtom } from "@/jotai/atoms/modal";
 
 export default function DashboardHeader() {
   const { data: session } = useSession();

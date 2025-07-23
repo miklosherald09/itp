@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { useSession, signOut } from "next-auth/react";
-// import { useRouter } from "next/navigation";
 import Link from "next/link";
 import {
   AppBar,
@@ -19,29 +18,17 @@ import {
 import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
 import AddIcon from "@mui/icons-material/Add";
-import { useAtom } from "jotai";
-import { countAtom } from "@/jotai/atoms/countAtoms";
+import { useAtom, useSetAtom } from "jotai";
+import { addItemAtom } from "@/jotai/atoms/modal";
 import { SignInButton } from "./buttons/signin";
 
 export default function TopMenu() {
   const { data: session } = useSession();
-  // const router = useRouter();
   const [searchQuery, setSearchQuery] = useState("");
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
 
-  const navItems = [
-    { name: "add", path: "/dashboard" },
-    // { name: "Analytics", path: "/dashboard/analytics" },
-    // { name: "Settings", path: "/dashboard/settings" },
-  ];
-
-  // const handleSearch = (e: React.FormEvent) => {
-  //   e.preventDefault();
-  //   if (searchQuery.trim()) {
-  //     router.push(`/dashboard/search?q=${encodeURIComponent(searchQuery)}`);
-  //   }
-  // };
+  const navItems = [{ name: "add", path: "/dashboard" }];
 
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);
@@ -59,7 +46,7 @@ export default function TopMenu() {
     setAnchorElNav(null);
   };
 
-  const [showAdd, setShowAdd] = useAtom(countAtom);
+  const setShowAdd = useSetAtom(addItemAtom);
 
   return (
     <AppBar

@@ -1,12 +1,15 @@
 "use client";
 
 import { Container } from "@mui/material";
-import { useGetItems } from "../services/items";
 import Grid from "@mui/material/Grid";
 import Item from "./item";
+import { useGetUserItems } from "@/services/items";
+import { useAtomValue } from "jotai";
+import { userAtom } from "@/jotai/atoms/users";
 
 export default function Items() {
-  const { data } = useGetItems();
+  const user = useAtomValue(userAtom);
+  const { data } = useGetUserItems(user?.id ?? 0);
   const items = data?.data ?? [];
 
   return (

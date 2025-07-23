@@ -1,10 +1,13 @@
 "use client";
 
 import { Box, Typography } from "@mui/material";
-import { signOut, useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import { SignOutButton } from "./buttons/signout";
+import useAuthHandler from "@/hooks/auth";
 export default function Divider() {
   const { data: session } = useSession();
+
+  useAuthHandler();
 
   if (!session) return <></>;
 

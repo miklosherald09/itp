@@ -3,7 +3,7 @@
 import { Box, Button, Grid, Typography } from "@mui/material";
 import Image from "next/image";
 import { ItemT } from "@/types/items";
-import { useAtom, useSetAtom } from "jotai";
+import { useAtom } from "jotai";
 import { activeAtom } from "./atoms";
 import { darkMode } from "@/utility/pallete";
 
