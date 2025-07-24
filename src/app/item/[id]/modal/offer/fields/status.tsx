@@ -1,27 +1,33 @@
 "use client";
 
-import { OfferStatusT } from "@/types/offer";
+import { userAtom } from "@/jotai/atoms/users";
+import { useGetUserItems } from "@/services/items";
 import { Autocomplete, TextField } from "@mui/material";
+import { useAtomValue } from "jotai";
 import { Controller, useFormContext } from "react-hook-form";
 
 export const StatusField = () => {
   const { control } = useFormContext();
 
-  const options: { id: OfferStatusT; label: string }[] = [
-    { id: "NEGOTIATING", label: "Negotiating" },
-    { id: "THINKING", label: "I'll think about it" },
-    { id: "DECLINED", label: "Decline" },
-  ];
+  const user = useAtomValue(userAtom);
+  const { data: itemsData } = useGetUserItems(user?.id);
+  const items = itemsData?.data ?? [];
+
+  const options = items?.map((item) => {
+    return { label: item?.name, id: item?.id };
+  });
 
   return (
     <Controller
-      name="status"
+      name="items"
       control={control}
+      rules={{ required: "Please select at least one film." }}
       render={({ field, fieldState: { error } }) => (
         <Autocomplete
           {...field}
           onChange={(event, value) => field.onChange(value)}
           options={options}
+          multiple
           getOptionLabel={(option) => option.label || ""}
           isOptionEqualToValue={(option, value) => option.label === value.label}
           disablePortal

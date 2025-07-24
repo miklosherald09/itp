@@ -10,7 +10,7 @@ import { ItemsField } from "./fields/items";
 import { CancelButton } from "./buttons/cancel";
 import { SubmitButton } from "./buttons/submit";
 import { userAtom } from "@/jotai/atoms/users";
-import { useAddOffer, useGetItemOffers } from "@/services/offers";
+import { useAddOffer, useGetOfferByItemId } from "@/services/offers";
 import { AddOfferInputT, AddOfferParamsT } from "@/types/offer";
 import { usePathname } from "next/navigation";
 import { useAddOfferItem } from "@/services/offerItems";
@@ -39,7 +39,7 @@ export const OfferModal = () => {
   const pathname = usePathname();
   const pathnames = pathname.split("/");
   const itemId = Number(pathnames?.[2]);
-  const { refetch: refetchOffers } = useGetItemOffers(itemId);
+  const { refetch: refetchOffers } = useGetOfferByItemId(itemId);
 
   const onSubmit = async (data: AddOfferInputT) => {
     // const itemId = window.location.

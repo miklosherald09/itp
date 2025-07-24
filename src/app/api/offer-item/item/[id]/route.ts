@@ -10,6 +10,7 @@ export async function GET(
 
     const response = await prisma.offerItem.findMany({
       where: { itemId: Number(id) },
+      include: { offer: { include: { item: true } } },
     });
 
     return NextResponse.json(response);

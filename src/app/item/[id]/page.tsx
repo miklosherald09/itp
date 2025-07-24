@@ -4,6 +4,8 @@ import TopMenu from "../../components/menu";
 import Details from "./details";
 import { OfferModal } from "./modal/offer";
 import Offers from "./offers";
+import { AcceptModal } from "./modal/accept";
+import History from "./history";
 
 interface Props {
   params: {
@@ -20,7 +22,9 @@ export default function Page({ params }: Props) {
       <TopMenu />
       <Details itemId={id} />
       <Offers itemId={id} />
+      <History />
       <OfferModal />
+      <AcceptModal />
     </Box>
   );
 }

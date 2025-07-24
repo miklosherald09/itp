@@ -1,4 +1,5 @@
 import { ItemT } from "./item";
+import { OfferT } from "./offer";
 
 export type AddOfferItemInputT = {
   itemId: number;
@@ -15,5 +16,6 @@ export type OfferItemT = {
   itemId: number;
   createdAt: string;
   updatedAt: string;
-  item: ItemT;
+  item?: ItemT;
+  offer?: OfferT;
 };

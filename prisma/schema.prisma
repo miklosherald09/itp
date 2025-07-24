@@ -46,6 +46,9 @@ model Item {
 enum OfferStatus {
   PENDING
   ACCEPTED
+  NEGOTIATING
+  THINKING
+  DECLINED
 }
 
 model Offer {

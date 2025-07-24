@@ -24,7 +24,7 @@ const addOfferItem = (
 
 export const useGetOfferItem = (offerId: number | null | undefined) => {
   return useQuery({
-    queryKey: ["get-user-items", offerId],
+    queryKey: ["get-offer-items", offerId],
     queryFn: () => getOfferItem(offerId),
   });
 };
@@ -35,6 +35,27 @@ const getOfferItem = (
   if (!offerId) return null;
 
   const url = `/api/offer-item/offer/${offerId}`;
+  return client({
+    url,
+    method: "GET",
+  });
+};
+
+/*--------------------------------------------------*/
+
+export const useGetOfferItemByItemId = (itemId: number | null | undefined) => {
+  return useQuery({
+    queryKey: ["get-offer-item-by-itemid", itemId],
+    queryFn: () => getOfferItemByItemId(itemId),
+  });
+};
+
+const getOfferItemByItemId = (
+  itemId: number | null | undefined
+): Promise<AxiosResponse<OfferItemT[]>> | null => {
+  if (!itemId) return null;
+
+  const url = `/api/offer-item/item/${itemId}`;
   return client({
     url,
     method: "GET",

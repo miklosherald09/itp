@@ -1,7 +1,6 @@
 "use client";
 
-import { tradeAtom } from "@/jotai/atoms/modal";
-import { useGetUserItems } from "@/services/items";
+import { acceptAtom } from "@/jotai/atoms/modal";
 import { Box, Modal, Typography } from "@mui/material";
 import { useAtom, useAtomValue } from "jotai";
 import { FormProvider, useForm } from "react-hook-form";
@@ -9,24 +8,20 @@ import { StatusField } from "./fields/status";
 import { CancelButton } from "./buttons/cancel";
 import { SubmitButton } from "./buttons/submit";
 import { userAtom } from "@/jotai/atoms/users";
-import { useAddOffer, useGetItemOffers } from "@/services/offers";
-import {
-  AcceptOfferInputT,
-  AcceptOfferParamsT,
-  AddOfferParamsT,
-} from "@/types/offer";
+import { useGetOfferByItemId } from "@/services/offers";
+import { AcceptOfferInputT, AcceptOfferParamsT } from "@/types/offer";
 import { usePathname } from "next/navigation";
-import { useAddOfferItem } from "@/services/offerItems";
-import { AddOfferItemParamsT } from "@/types/offerItem";
+import { useAcceptOffer } from "@/services/offers";
+import { offerAtom } from "@/jotai/atoms/selected";
 
-export const OfferModal = () => {
+export const AcceptModal = () => {
   const methods = useForm({
     defaultValues: {
-      status: "",
+      status: null,
     },
   });
 
-  const [open, setOpen] = useAtom(tradeAtom);
+  const [open, setOpen] = useAtom(acceptAtom);
 
   const handleClose = () => {
     setOpen(false);
@@ -34,36 +29,28 @@ export const OfferModal = () => {
   };
 
   const user = useAtomValue(userAtom);
-  const addOffer = useAddOffer();
-  const addOfferItem = useAddOfferItem();
-  const { refetch: refetchGetUserItems } = useGetUserItems(user?.id);
+  const acceptOffer = useAcceptOffer();
   const pathname = usePathname();
   const pathnames = pathname.split("/");
   const itemId = Number(pathnames?.[2]);
-  const { refetch: refetchOffers } = useGetItemOffers(itemId);
+  const { refetch: refetchOffers } = useGetOfferByItemId(itemId);
+  const selectedOffer = useAtomValue(offerAtom);
 
   const onSubmit = async (data: AcceptOfferInputT) => {
     try {
-      if (!user?.id) throw new Error();
+      if (!user?.id) throw new Error("no user");
+      if (!selectedOffer) throw new Error("no offer");
+
+      let status = data?.status?.id;
+      if (!status) status = "ACCEPTED";
 
       const params: AcceptOfferParamsT = {
-        status: data?.status,
-        offerId: 0,
+        status,
+        offerId: selectedOffer?.id,
       };
 
-      const response = await addOffer.mutateAsync(params);
-      const offer = response?.data;
+      await acceptOffer.mutateAsync(params);
 
-      const oiParams: AddOfferItemParamsT[] = data?.items?.map((item) => {
-        return {
-          itemId: item?.id,
-          offerId: offer?.id,
-        };
-      });
-
-      await addOfferItem.mutateAsync(oiParams);
-
-      refetchGetUserItems();
       refetchOffers();
       handleClose();
     } catch (e) {
@@ -71,7 +58,7 @@ export const OfferModal = () => {
     }
   };
 
-  const isLoading = addOfferItem?.isPending || addOffer.isPending;
+  const isLoading = acceptOffer?.isPending;
 
   return (
     <Modal open={open} onClose={handleClose}>

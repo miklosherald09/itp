@@ -1,5 +1,5 @@
 import { client } from "@/axios/client";
-import { AddOfferParamsT, OfferT } from "@/types/offer";
+import { AcceptOfferParamsT, AddOfferParamsT, OfferT } from "@/types/offer";
 import { OfferItemT } from "@/types/offerItem";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { AxiosResponse } from "axios";
@@ -23,17 +23,36 @@ export const addOffer = (
 
 /*--------------------------------------------------*/
 
-export const useGetItemOffers = (itemId: number) => {
+export const useGetOfferByItemId = (itemId: number) => {
   return useQuery({
     queryKey: ["get-item-offers", itemId],
-    queryFn: () => getItemOffers(itemId),
+    queryFn: () => getOfferByItemId(itemId),
   });
 };
 
-const getItemOffers = (itemId: number): Promise<AxiosResponse<OfferT[]>> => {
+const getOfferByItemId = (itemId: number): Promise<AxiosResponse<OfferT[]>> => {
   const url = `/api/offer/item/${itemId}`;
   return client({
     url,
     method: "GET",
+  });
+};
+
+/*--------------------------------------------------*/
+
+export const useAcceptOffer = () => {
+  return useMutation({
+    mutationFn: (params: AcceptOfferParamsT) => acceptOffer(params),
+  });
+};
+
+const acceptOffer = (
+  params: AcceptOfferParamsT
+): Promise<AxiosResponse<OfferItemT>> => {
+  const url = `/api/offer/accept`;
+  return client({
+    url,
+    method: "PUT",
+    data: params,
   });
 };

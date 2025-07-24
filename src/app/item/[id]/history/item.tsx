@@ -1,11 +1,11 @@
 "use client";
 
-import { ButtonBase } from "@mui/material";
+import { Box, ButtonBase } from "@mui/material";
 import { ItemT } from "@/types/item";
 import { useRouter } from "next/navigation";
 
 type Props = {
-  item: ItemT | undefined;
+  item: ItemT;
 };
 
 export default function Item(props: Props) {
@@ -16,8 +16,10 @@ export default function Item(props: Props) {
   };
 
   return (
-    <ButtonBase onClick={handleClick}>
-      <span className="underline">{item?.name}</span>
-    </ButtonBase>
+    <Box>
+      <ButtonBase onClick={handleClick}>
+        <span className="underline">{item?.name} +</span>
+      </ButtonBase>
+    </Box>
   );
 }

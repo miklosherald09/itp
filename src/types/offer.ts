@@ -1,4 +1,5 @@
 import { ItemT } from "./item";
+import { OfferItemT } from "./offerItem";
 import { UserT } from "./user";
 
 export type OfferT = {
@@ -11,6 +12,7 @@ export type OfferT = {
   notes: string;
   createdAt: string;
   updatedAt: string;
+  offerItem?: OfferItemT[];
 };
 
 export type AddOfferItemsInputT = {
@@ -38,10 +40,10 @@ export type AddOfferParamsT = {
 };
 
 export type AcceptOfferInputT = {
-  status: string;
+  status: { id: OfferStatusT; label: string } | null;
 };
 
 export type AcceptOfferParamsT = {
-  status: string;
+  status: OfferStatusT;
   offerId: number;
 };
