@@ -23,11 +23,25 @@ export type AddOfferInputT = {
   items: AddOfferItemsInputT[];
 };
 
-export type OfferStatusT = "PENDING" | "ACCEPTED";
+export type OfferStatusT =
+  | "PENDING"
+  | "NEGOTIATING"
+  | "THINKING"
+  | "ACCEPTED"
+  | "DECLINED";
 
 export type AddOfferParamsT = {
   itemId: number;
   userId: number;
   status: OfferStatusT;
   notes: string;
+};
+
+export type AcceptOfferInputT = {
+  status: string;
+};
+
+export type AcceptOfferParamsT = {
+  status: string;
+  offerId: number;
 };
