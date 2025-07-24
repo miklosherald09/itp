@@ -3,11 +3,12 @@ import { Box, Button } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import { useSetAtom } from "jotai";
 import { addItemAtom } from "@/jotai/atoms/modal";
+import { usePathname } from "next/navigation";
 
 export default function DesktopNav() {
   const setShowAdd = useSetAtom(addItemAtom);
 
-  const path = window.location.pathname;
+  const path = usePathname();
 
   if (!path?.match("/dashboard")) return <></>;
 

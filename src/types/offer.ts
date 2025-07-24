@@ -1,16 +1,18 @@
-export type AddOfferInputT = {
-  notes: string;
+export type AddOfferItemsInputT = {
+  id: number;
+  label: string;
 };
 
-enum OfferStatus {
-  PENDING,
-  ACCEPTED,
-}
+export type AddOfferInputT = {
+  notes: string;
+  items: AddOfferItemsInputT[];
+};
+
+export type OfferStatusT = "PENDING" | "ACCEPTED";
 
 export type AddOfferParamsT = {
-  id: number;
   itemId: number;
   userId: number;
-  status: OfferStatus;
+  status: OfferStatusT;
   notes: string;
 };

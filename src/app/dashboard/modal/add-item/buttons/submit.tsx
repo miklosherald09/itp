@@ -2,14 +2,21 @@
 
 import { Button } from "@mui/material";
 
-export const SubmitButton = () => {
+type Props = {
+  isLoading: boolean;
+};
+
+export const SubmitButton = (props: Props) => {
+  const { isLoading } = props;
+
   return (
     <Button
       type="submit"
       variant="contained"
       className="bg-blue-500 hover:bg-blue-700"
+      disabled={isLoading}
     >
-      Submit
+      {isLoading ? "Submiting.." : "Submit"}
     </Button>
   );
 };

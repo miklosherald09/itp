@@ -2,7 +2,7 @@ import Divider from "../../components/divider";
 import { Box } from "@mui/material";
 import TopMenu from "../../components/menu";
 import Details from "./details";
-import { TradeModal } from "./modal/trade";
+import { OfferModal } from "./modal/offer";
 
 interface Props {
   params: {
@@ -18,7 +18,7 @@ export default function Page({ params }: Props) {
       <Divider />
       <TopMenu />
       <Details itemId={id} />
-      <TradeModal />
+      <OfferModal />
     </Box>
   );
 }

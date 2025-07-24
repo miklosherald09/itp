@@ -70,29 +70,8 @@ export default function ItemDetails(props: Props) {
             </Typography>
           </Box>
           <Box>
-            <OfferButton itemId={itemId} />
+            <OfferButton />
           </Box>
-          {/* <Box sx={{ mb: 3 }}>
-            <Typography variant="h6" sx={{ pb: 0 }} gutterBottom>
-              Offers
-            </Typography>
-            {item.offers.length > 0 ? (
-              <List sx={{ mb: 0, p: 0 }}>
-                {item.offers.map((bid, index) => (
-                  <ListItem key={index} disablePadding>
-                    <Box>
-                      <Typography>{`$${bid.amount} (${bid.date})`}</Typography>
-                      <Typography>{`${bid.bidder}`}</Typography>
-                    </Box>
-                  </ListItem>
-                ))}
-              </List>
-            ) : (
-              <Typography variant="body2" color="text.secondary">
-                No bids yet
-              </Typography>
-            )}
-          </Box> */}
         </Box>
       </Box>
     </Container>

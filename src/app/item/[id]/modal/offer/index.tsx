@@ -1,8 +1,7 @@
 "use client";
 
 import { tradeAtom } from "@/jotai/atoms/modal";
-import { useAddItem, useGetUserItems } from "@/services/items";
-import { AddItemsParamsT, TradeInputT, TradeParamT } from "@/types/item";
+import { useGetUserItems } from "@/services/items";
 import { Box, Modal, Typography } from "@mui/material";
 import { useAtom, useAtomValue } from "jotai";
 import { FormProvider, useForm } from "react-hook-form";
@@ -11,11 +10,16 @@ import { ItemsField } from "./fields/items";
 import { CancelButton } from "./buttons/cancel";
 import { SubmitButton } from "./buttons/submit";
 import { userAtom } from "@/jotai/atoms/users";
+import { useAddOffer } from "@/services/offers";
+import { AddOfferInputT, AddOfferParamsT } from "@/types/offer";
+import { usePathname } from "next/navigation";
+import { useAddOfferItem } from "@/services/offerItems";
+import { AddOfferItemParamsT } from "@/types/offerItem";
 
-export const TradeModal = () => {
+export const OfferModal = () => {
   const methods = useForm({
     defaultValues: {
-      items: "",
+      items: [],
       notes: "",
       coins: "",
     },
@@ -28,21 +32,48 @@ export const TradeModal = () => {
     methods.reset();
   };
 
-  // const tradeItem = useTradeItem();
   const user = useAtomValue(userAtom);
+  const addOffer = useAddOffer();
+  const addOfferItem = useAddOfferItem();
   const { refetch } = useGetUserItems(user?.id);
+  const pathname = usePathname();
+  const pathnames = pathname.split("/");
 
-  const onSubmit = async (data: TradeInputT) => {
-    const params: TradeParamT = {
-      coins: "1",
-      notes: "2",
-      userId: 1,
-      itemId: 1,
-    };
-    // await tradeItem.mutateAsync(params);
-    refetch();
-    handleClose();
+  const onSubmit = async (data: AddOfferInputT) => {
+    // const itemId = window.location.
+
+    try {
+      if (!user?.id) throw new Error();
+
+      const params: AddOfferParamsT = {
+        itemId: Number(pathnames?.[2]),
+        userId: user?.id,
+        status: "PENDING",
+        notes: data?.notes,
+      };
+
+      const response = await addOffer.mutateAsync(params);
+      const offer = response?.data;
+
+      const oiParams: AddOfferItemParamsT[] = data?.items?.map((item) => {
+        return {
+          itemId: item?.id,
+          offerId: offer?.id,
+        };
+      });
+
+      console.log("oiParamsxx", oiParams);
+
+      await addOfferItem.mutateAsync(oiParams);
+
+      refetch();
+      handleClose();
+    } catch (e) {
+      console.log(e);
+    }
   };
+
+  const isLoading = addOfferItem?.isPending || addOffer.isPending;
 
   return (
     <Modal open={open} onClose={handleClose}>
@@ -65,7 +96,7 @@ export const TradeModal = () => {
             <Box sx={{ mt: 2 }} className="flex justify-end space-x-2">
               <CancelButton />
               <Box sx={{ ml: 1 }}>
-                <SubmitButton />
+                <SubmitButton isLoading={isLoading} />
               </Box>
             </Box>
           </form>

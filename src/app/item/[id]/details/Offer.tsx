@@ -2,15 +2,25 @@
 
 import { Typography, Button } from "@mui/material";
 import HandshakeIcon from "@mui/icons-material/Handshake";
-import { useSetAtom } from "jotai";
+import { useAtomValue, useSetAtom } from "jotai";
 import { tradeAtom } from "@/jotai/atoms/modal";
+import { usePathname } from "next/navigation";
+import { useGetUserItems } from "@/services/items";
+import { userAtom } from "@/jotai/atoms/users";
 
-type Props = {
-  itemId: string;
-};
-
-export default function OfferButton(props: Props) {
+export default function OfferButton() {
   const setOpen = useSetAtom(tradeAtom);
+  const pathname = usePathname();
+  const pathnames = pathname.split("/");
+  const user = useAtomValue(userAtom);
+  const { data, isLoading } = useGetUserItems(user?.id);
+  const items = data?.data;
+  const ids = items?.map((item) => item.id);
+
+  const ownItem = ids?.includes(Number(pathnames?.[2]));
+
+  if (isLoading) return <></>;
+  if (ownItem) return <></>;
 
   return (
     <Button

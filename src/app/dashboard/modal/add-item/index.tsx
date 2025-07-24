@@ -58,11 +58,10 @@ export const ItemFormModal = () => {
     <Modal open={open} onClose={handleClose}>
       <Box className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md mx-auto mt-20">
         <Typography
-          variant="h6"
-          sx={{ color: "black", mb: 2 }}
+          sx={{ color: "black", mb: 2, fontWeight: 600 }}
           className="mb-20"
         >
-          Add New Item
+          Add something you own
         </Typography>
         <FormProvider {...methods}>
           <form onSubmit={methods.handleSubmit(onSubmit)}>
@@ -84,7 +83,7 @@ export const ItemFormModal = () => {
             <Box sx={{ mt: 2 }} className="flex justify-end space-x-2">
               <CancelButton />
               <Box sx={{ ml: 1 }}>
-                <SubmitButton />
+                <SubmitButton isLoading={addItem?.isPending} />
               </Box>
             </Box>
           </form>

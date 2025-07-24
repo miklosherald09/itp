@@ -1,24 +1,24 @@
 import { client } from "@/axios/client";
-import { UserT } from "@/types/user";
-import { useQuery } from "@tanstack/react-query";
+import { AddOfferParamsT } from "@/types/offer";
+import { OfferItemT } from "@/types/offerItem";
+import { useMutation } from "@tanstack/react-query";
 import { AxiosResponse } from "axios";
 
-/*--------- useGetUserByEmail ---------*/
-
-export const useGetUserByEmail = (email: string) => {
-  return useQuery({
-    queryKey: ["get-user-by-email"],
-    queryFn: () => getUserByEmail(email),
-    enabled: false,
+export const useAddOffer = () => {
+  return useMutation({
+    mutationFn: (params: AddOfferParamsT) => addOffer(params),
   });
 };
 
-export const getUserByEmail = (
-  email: string
-): Promise<AxiosResponse<UserT>> => {
-  const url = `/api/user/?email=${email}`;
+export const addOffer = (
+  params: AddOfferParamsT
+): Promise<AxiosResponse<OfferItemT>> => {
+  const url = `/api/offer`;
   return client({
     url,
-    method: "GET",
+    method: "POST",
+    data: params,
   });
 };
+
+/*--------------------------------------------------*/

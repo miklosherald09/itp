@@ -76,3 +76,21 @@ export const getItem = (id: number): Promise<AxiosResponse<ItemT>> | null => {
     method: "GET",
   });
 };
+
+/*--------------------------------------------------*/
+
+export const useGetItems = () => {
+  return useQuery({
+    queryKey: ["get-items"],
+    queryFn: () => getItems(),
+  });
+};
+
+export const getItems = (): Promise<AxiosResponse<ItemT[]>> => {
+  const url = `/api/item`;
+  return client({
+    url,
+    method: "GET",
+    data: {},
+  });
+};

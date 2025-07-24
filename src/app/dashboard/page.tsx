@@ -10,7 +10,7 @@ export default function Page() {
     <Box>
       <Divider />
       <TopMenu />
-      <ActiveItems />
+      {/* <ActiveItems /> */}
       <Items />
       <ItemFormModal />
     </Box>

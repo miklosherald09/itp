@@ -1,22 +1,20 @@
 "use client";
 
-import { Container, Typography } from "@mui/material";
+import { Container } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import Item from "./item";
-import { useSearchItems } from "@/services/items";
+import { useGetItems } from "@/services/items";
 import { useSearchParams } from "next/navigation";
 
 export default function ItemsAll() {
   const searchParams = useSearchParams();
   const search = searchParams.get("q");
 
-  const { data, isLoading } = useSearchItems(search ?? "");
+  const { data, isLoading } = useGetItems();
   const items = data?.data ?? [];
 
-  if (isLoading)
-    return <Typography sx={{ m: 1 }}>Searching items..</Typography>;
-  if (!items?.length)
-    return <Typography sx={{ m: 1 }}>No results found..</Typography>;
+  if (search) return <></>;
+  if (isLoading) return <></>;
 
   return (
     <Container maxWidth="xl" sx={{ mt: 2 }}>

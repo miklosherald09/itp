@@ -27,6 +27,7 @@ export const ItemsField = () => {
           {...field}
           onChange={(event, value) => field.onChange(value)}
           options={options}
+          multiple
           getOptionLabel={(option) => option.label || ""}
           isOptionEqualToValue={(option, value) => option.label === value.label}
           disablePortal

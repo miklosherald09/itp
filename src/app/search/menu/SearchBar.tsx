@@ -27,9 +27,11 @@ export default function SearchBar() {
             display: "flex",
             alignItems: "center",
             bgcolor: "gray.100",
-            borderRadius: "9999px",
-            px: 2,
-            py: 1,
+            borderRadius: "20px",
+            px: 0,
+            py: "4px",
+            width: 300,
+            border: "solid 1px #D1D5DB",
           }}
         >
           <SearchIcon sx={{ color: "gray.400", mr: 1 }} />

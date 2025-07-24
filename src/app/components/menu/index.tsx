@@ -3,9 +3,9 @@
 import { AppBar, Toolbar } from "@mui/material";
 import MobileNav from "./mobileNav";
 import DesktopNav from "./DesktopNav";
-import SearchBar from "./SearchBar";
 import Logo from "./logo";
 import UserInfo from "./UserInfo";
+import SearchBar from "@/app/search/menu/SearchBar";
 
 export default function TopMenu() {
   return (
