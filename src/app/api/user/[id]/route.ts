@@ -1,5 +1,5 @@
-import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(
   request: NextRequest,
@@ -8,17 +8,13 @@ export async function GET(
   try {
     const { id } = await params;
 
-    const response = await prisma.item.findUnique({
+    const user = await prisma.item.findUnique({
       where: { id: Number(id) },
-      include: { user: true },
     });
 
-    return NextResponse.json(response);
+    return NextResponse.json(user);
   } catch (error) {
     console.error("Request error", error);
-    return NextResponse.json(
-      { error: "Error searching items" },
-      { status: 401 }
-    );
+    return NextResponse.json({ error: "error fetching user" }, { status: 444 });
   }
 }

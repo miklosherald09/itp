@@ -6,6 +6,7 @@ import { ItemT } from "@/types/item";
 import { useAtom } from "jotai";
 import { activeAtom } from "./atoms";
 import { darkMode } from "@/utility/pallete";
+import { useRouter } from "next/navigation";
 
 type Props = {
   item: ItemT;
@@ -15,15 +16,16 @@ export default function Item(props: Props) {
   const { item } = props;
 
   const [items, setItem] = useAtom(activeAtom);
+  const router = useRouter();
+
+  const handleClick = () => {
+    router.push(`item/${item?.id}`);
+    setItem([...items, item]);
+  };
 
   return (
     <Grid size={{ xs: 3, sm: 2, md: 1, lg: 1 }}>
-      <Button
-        onClick={() => {
-          setItem([...items, item]);
-        }}
-        sx={{ width: "100%" }}
-      >
+      <Button onClick={handleClick} sx={{ width: "100%" }}>
         <Box
           sx={{
             width: "100%",

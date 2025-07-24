@@ -8,9 +8,8 @@ export async function GET(
   try {
     const { id } = await params;
 
-    const response = await prisma.item.findUnique({
-      where: { id: Number(id) },
-      include: { user: true },
+    const response = await prisma.offerItem.findMany({
+      where: { itemId: Number(id) },
     });
 
     return NextResponse.json(response);

@@ -38,20 +38,21 @@ export const ItemFormModal = () => {
   const { refetch } = useGetUserItems(user?.id);
 
   const onSubmit = async (data: AddItemInputT) => {
-    const userString = localStorage?.getItem("user");
-    if (!userString) return;
-
-    const user = JSON.parse(userString);
-    const params: AddItemsParamsT = {
-      type: data?.type,
-      name: data?.name,
-      description: data?.description,
-      price: Number(data?.price),
-      userId: user?.id,
-    };
-    await addItem.mutateAsync(params);
-    refetch();
-    handleClose();
+    try {
+      if (!user?.id) throw new Error("error no user id");
+      const params: AddItemsParamsT = {
+        type: data?.type,
+        name: data?.name,
+        description: data?.description,
+        price: Number(data?.price),
+        userId: user?.id,
+      };
+      await addItem.mutateAsync(params);
+      refetch();
+      handleClose();
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   return (

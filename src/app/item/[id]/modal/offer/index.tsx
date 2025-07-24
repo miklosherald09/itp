@@ -10,7 +10,7 @@ import { ItemsField } from "./fields/items";
 import { CancelButton } from "./buttons/cancel";
 import { SubmitButton } from "./buttons/submit";
 import { userAtom } from "@/jotai/atoms/users";
-import { useAddOffer } from "@/services/offers";
+import { useAddOffer, useGetItemOffers } from "@/services/offers";
 import { AddOfferInputT, AddOfferParamsT } from "@/types/offer";
 import { usePathname } from "next/navigation";
 import { useAddOfferItem } from "@/services/offerItems";
@@ -35,9 +35,11 @@ export const OfferModal = () => {
   const user = useAtomValue(userAtom);
   const addOffer = useAddOffer();
   const addOfferItem = useAddOfferItem();
-  const { refetch } = useGetUserItems(user?.id);
+  const { refetch: refetchGetUserItems } = useGetUserItems(user?.id);
   const pathname = usePathname();
   const pathnames = pathname.split("/");
+  const itemId = Number(pathnames?.[2]);
+  const { refetch: refetchOffers } = useGetItemOffers(itemId);
 
   const onSubmit = async (data: AddOfferInputT) => {
     // const itemId = window.location.
@@ -46,7 +48,7 @@ export const OfferModal = () => {
       if (!user?.id) throw new Error();
 
       const params: AddOfferParamsT = {
-        itemId: Number(pathnames?.[2]),
+        itemId,
         userId: user?.id,
         status: "PENDING",
         notes: data?.notes,
@@ -66,7 +68,8 @@ export const OfferModal = () => {
 
       await addOfferItem.mutateAsync(oiParams);
 
-      refetch();
+      refetchGetUserItems();
+      refetchOffers();
       handleClose();
     } catch (e) {
       console.log(e);

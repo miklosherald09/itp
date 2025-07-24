@@ -1,3 +1,5 @@
+import { ItemT } from "./item";
+
 export type AddOfferItemInputT = {
   itemId: number;
 };
@@ -13,4 +15,5 @@ export type OfferItemT = {
   itemId: number;
   createdAt: string;
   updatedAt: string;
+  item: ItemT;
 };

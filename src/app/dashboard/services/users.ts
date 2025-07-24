@@ -3,15 +3,18 @@ import { ItemT } from "@/types/item";
 import { useQuery } from "@tanstack/react-query";
 import { AxiosResponse } from "axios";
 
-export const useGetUser = (email: string) => {
+export const useGetUser = (id: number | null | undefined) => {
   return useQuery({
     queryKey: ["get-user"],
-    queryFn: () => getUser(email),
+    queryFn: () => getUser(id),
   });
 };
 
-export const getUser = (email: string): Promise<AxiosResponse<ItemT[]>> => {
-  const url = `/dashboard/items/?email=${email}`;
+export const getUser = (
+  id: number | null | undefined
+): Promise<AxiosResponse<ItemT[]>> | null => {
+  if (!id) return null;
+  const url = `/dashboard/items/?email=${id}`;
   return client({
     url,
     method: "GET",

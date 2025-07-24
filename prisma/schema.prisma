@@ -18,7 +18,8 @@ model User {
   id    Int     @id @default(autoincrement())
   email String  @unique
   name  String?
-  Offer Offer[]
+  item  Item[]
+  offer Offer[]
 }
 
 enum ItemType {
@@ -27,17 +28,19 @@ enum ItemType {
 }
 
 model Item {
-  id          Int      @id @default(autoincrement())
-  userId      Int      @default(0)
+  id          Int         @id @default(autoincrement())
+  userId      Int         @default(0)
   type        ItemType
   name        String
   description String?
   price       Float?
   duration    Int?
   level       Int?
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  Offer       Offer[]
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  offer       Offer[]
+  user        User        @relation(fields: [userId], references: [id])
+  OfferItem   OfferItem[]
 }
 
 enum OfferStatus {
@@ -48,14 +51,14 @@ enum OfferStatus {
 model Offer {
   id        Int          @id @default(autoincrement())
   itemId    Int          @default(0)
-  item      Item         @relation(fields: [itemId], references: [id])
   userId    Int
+  item      Item         @relation(fields: [itemId], references: [id])
   user      User         @relation(fields: [userId], references: [id])
   status    OfferStatus? @default(PENDING)
   notes     String?
   createdAt DateTime     @default(now())
   updatedAt DateTime     @updatedAt
-  OfferItem OfferItem[]
+  offerItem OfferItem[]
 }
 
 model OfferItem {
@@ -64,5 +67,6 @@ model OfferItem {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   offerId   Int?
-  Offer     Offer?   @relation(fields: [offerId], references: [id])
+  offer     Offer?   @relation(fields: [offerId], references: [id])
+  item      Item     @relation(fields: [itemId], references: [id])
 }

@@ -1,11 +1,17 @@
+import { UserT } from "./user";
+
 export type ItemT = {
   id: number;
+  userId: number;
   type: string;
   name: string;
   description?: string;
   price?: number;
   duration?: number;
   level?: number;
+  user: UserT;
+  createdAt: string;
+  updatedAt: string;
 };
 
 export type AddItemInputT = {

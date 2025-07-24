@@ -12,11 +12,14 @@ export default function ItemsAll() {
 
   const { data, isLoading } = useSearchItems(search ?? "");
   const items = data?.data ?? [];
-
+  console.log("isLoadingx", isLoading);
   if (isLoading)
     return <Typography sx={{ m: 1 }}>Searching items..</Typography>;
-  if (!items?.length)
+
+  if (!items?.length && search)
     return <Typography sx={{ m: 1 }}>No results found..</Typography>;
+
+  if (!items?.length) return <></>;
 
   return (
     <Container maxWidth="xl" sx={{ mt: 2 }}>

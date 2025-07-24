@@ -1,12 +1,12 @@
 "use client";
 
-import { addItemAtom } from "@/jotai/atoms/modal";
+import { tradeAtom } from "@/jotai/atoms/modal";
 import { Button } from "@mui/material";
 import { useSetAtom } from "jotai";
 import { useFormContext } from "react-hook-form";
 
 export const CancelButton = () => {
-  const setOpen = useSetAtom(addItemAtom);
+  const setOpen = useSetAtom(tradeAtom);
   const { reset } = useFormContext();
 
   const handleClose = () => {

@@ -8,8 +8,8 @@ export async function GET(
   try {
     const { id } = await params;
 
-    const response = await prisma.item.findUnique({
-      where: { id: Number(id) },
+    const response = await prisma.offer.findMany({
+      where: { itemId: Number(id) },
       include: { user: true },
     });
 
@@ -17,7 +17,7 @@ export async function GET(
   } catch (error) {
     console.error("Request error", error);
     return NextResponse.json(
-      { error: "Error searching items" },
+      { error: "Error getting item offers" },
       { status: 401 }
     );
   }

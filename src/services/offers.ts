@@ -1,7 +1,7 @@
 import { client } from "@/axios/client";
-import { AddOfferParamsT } from "@/types/offer";
+import { AddOfferParamsT, OfferT } from "@/types/offer";
 import { OfferItemT } from "@/types/offerItem";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { AxiosResponse } from "axios";
 
 export const useAddOffer = () => {
@@ -22,3 +22,18 @@ export const addOffer = (
 };
 
 /*--------------------------------------------------*/
+
+export const useGetItemOffers = (itemId: number) => {
+  return useQuery({
+    queryKey: ["get-item-offers", itemId],
+    queryFn: () => getItemOffers(itemId),
+  });
+};
+
+const getItemOffers = (itemId: number): Promise<AxiosResponse<OfferT[]>> => {
+  const url = `/api/offer/item/${itemId}`;
+  return client({
+    url,
+    method: "GET",
+  });
+};

@@ -5,7 +5,7 @@ import MobileNav from "./mobileNav";
 import DesktopNav from "./DesktopNav";
 import Logo from "./logo";
 import UserInfo from "./UserInfo";
-import SearchBar from "@/app/search/menu/SearchBar";
+import SearchBar from "./SearchBar";
 
 export default function TopMenu() {
   return (

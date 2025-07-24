@@ -53,6 +53,8 @@ export const useSearchItems = (search: string) => {
 export const getSearchItems = (
   search: string
 ): Promise<AxiosResponse<ItemT[]>> | null => {
+  if (!search) return null;
+
   const url = `/api/item/search/${search}`;
   return client({
     url,

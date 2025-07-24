@@ -1,3 +1,18 @@
+import { ItemT } from "./item";
+import { UserT } from "./user";
+
+export type OfferT = {
+  id: number;
+  itemId: number;
+  userId: number;
+  user?: UserT;
+  item?: ItemT;
+  status: OfferStatusT;
+  notes: string;
+  createdAt: string;
+  updatedAt: string;
+};
+
 export type AddOfferItemsInputT = {
   id: number;
   label: string;
