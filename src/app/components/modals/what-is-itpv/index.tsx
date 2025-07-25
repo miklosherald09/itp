@@ -5,6 +5,7 @@ import { Box, Modal, Typography } from "@mui/material";
 import { useAtom } from "jotai";
 import { FormProvider, useForm } from "react-hook-form";
 import { SubmitButton } from "./buttons/submit";
+import spiel from "@/spiels";
 
 export const WhatIsItpvModal = () => {
   const methods = useForm({
@@ -38,7 +39,7 @@ export const WhatIsItpvModal = () => {
         <FormProvider {...methods}>
           <form onSubmit={methods.handleSubmit(onSubmit)}>
             <Box sx={{ mt: 1 }}>
-              <Typography></Typography>
+              <Typography>{spiel?.itpv}</Typography>
             </Box>
             <Box sx={{ mt: 2 }} className="flex justify-end space-x-2">
               <Box sx={{ ml: 1 }}>

@@ -23,3 +23,22 @@ export const getUserByEmail = (
 };
 
 /*-------------------------------------------*/
+
+export const useGetUserItpvTotal = (id: number | null | undefined) => {
+  return useQuery({
+    queryKey: ["get-user-by-email", id],
+    queryFn: () => getUserItpvTotal(id),
+  });
+};
+
+const getUserItpvTotal = (
+  id: number | null | undefined
+): Promise<AxiosResponse<{ total: number }>> | null => {
+  if (!id) return null;
+
+  const url = `/api/user/${id}/itpv-value`;
+  return client({
+    url,
+    method: "GET",
+  });
+};

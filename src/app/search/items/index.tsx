@@ -22,7 +22,7 @@ export default function ItemsAll() {
   if (!items?.length) return <></>;
 
   return (
-    <Container maxWidth="xl" sx={{ mt: 2 }}>
+    <Container maxWidth="lg" sx={{ mt: 2 }}>
       <Grid container sx={{ height: "120px" }}>
         {items?.map((item, i) => {
           return <Item item={item} key={i} />;

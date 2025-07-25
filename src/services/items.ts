@@ -11,7 +11,9 @@ export const useAddItem = () => {
   });
 };
 
-export const addItem = (params: AddItemsParamsT) => {
+export const addItem = (
+  params: AddItemsParamsT
+): Promise<AxiosResponse<ItemT>> => {
   const url = `/api/item`;
   return client({
     url,

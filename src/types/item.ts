@@ -3,7 +3,7 @@ import { UserT } from "./user";
 export enum ItemTypeT {
   product = "Product",
   service = "Service",
-  money = "Money",
+  money = "Money", // ITPV
   currency = "Currency",
 }
 

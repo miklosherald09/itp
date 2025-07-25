@@ -14,6 +14,7 @@ import { CancelButton } from "./buttons/cancel";
 import { SubmitButton } from "./buttons/submit";
 import { userAtom } from "@/jotai/atoms/users";
 import { ItpvInfoButton } from "./buttons/itpvInfo";
+import { useRouter } from "next/navigation";
 
 export const ItemFormModal = () => {
   const methods = useForm<AddItemInputT>({
@@ -36,6 +37,7 @@ export const ItemFormModal = () => {
   const addItem = useAddItem();
   const user = useAtomValue(userAtom);
   const { refetch } = useGetUserItems(user?.id);
+  const router = useRouter();
 
   const onSubmit = async (data: AddItemInputT) => {
     try {
@@ -47,7 +49,9 @@ export const ItemFormModal = () => {
         price: Number(data?.price),
         userId: user?.id,
       };
-      await addItem.mutateAsync(params);
+      const response = await addItem.mutateAsync(params);
+      const itemId = response?.data?.id;
+      router.push(`/item/${itemId}`);
       refetch();
       handleClose();
     } catch (e) {

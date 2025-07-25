@@ -8,9 +8,16 @@ export default function DesktopNav() {
   const setShowAdd = useSetAtom(addItemAtom);
 
   return (
-    <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" }, ml: 4 }}>
+    <Box
+      sx={{
+        flexGrow: 1,
+        mt: "2px",
+        display: { xs: "none", md: "flex" },
+        ml: 4,
+      }}
+    >
       <ButtonBase onClick={() => setShowAdd(true)} sx={{}}>
-        <AddIcon sx={{ fontWeight: 100, fontSize: 24 }} color="primary" />
+        <AddIcon fontSize="medium" sx={{ fontWeight: 100 }} color="primary" />
       </ButtonBase>
     </Box>
   );

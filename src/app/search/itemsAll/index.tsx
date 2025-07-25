@@ -2,7 +2,7 @@
 
 import { Container } from "@mui/material";
 import Grid from "@mui/material/Grid";
-import Item from "./item";
+import Item from "../items/item";
 import { useGetItems } from "@/services/items";
 import { useSearchParams } from "next/navigation";
 
@@ -17,7 +17,7 @@ export default function ItemsAll() {
   if (isLoading) return <></>;
 
   return (
-    <Container maxWidth="xl" sx={{ mt: 2 }}>
+    <Container maxWidth="lg" sx={{ mt: 2 }}>
       <Grid container sx={{ height: "120px" }}>
         {items?.map((item, i) => {
           return <Item item={item} key={i} />;

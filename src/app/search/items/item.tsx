@@ -5,6 +5,7 @@ import Image from "next/image";
 import { ItemT } from "@/types/item";
 import { darkMode } from "@/utility/pallete";
 import { useRouter } from "next/navigation";
+import formatter from "@/utility/formatter";
 
 type Props = {
   item: ItemT;
@@ -20,47 +21,47 @@ export default function Item(props: Props) {
   };
 
   return (
-    <Grid size={{ xs: 4, sm: 3, md: 2, lg: 1 }}>
+    <Grid>
       <Button onClick={handleClick} sx={{ width: "100%" }}>
         <Box
           sx={{
             width: "100%",
-            justifyContent: "center",
-            alignContent: "center",
-            textAlign: "center",
+            textAlign: "left",
           }}
         >
           <Image
-            src="/file.svg"
-            width={60}
-            height={60}
+            src={"https://i.pravatar.cc/"}
+            width={200}
+            height={200}
             alt="Picture of the author"
             style={{
-              width: `100%`,
-              height: `100%`,
+              width: `200px`,
+              height: `200px`,
               objectFit: "cover",
               borderRadius: "4px",
               marginBottom: "8px",
             }}
           />
-          <Typography
-            sx={{
-              color: darkMode?.primary,
-              fontSize: 12,
-              textTransform: "none",
-            }}
-          >
-            {item.name}
-          </Typography>
-          <Typography
-            sx={{
-              color: darkMode?.primary,
-              fontSize: 12,
-              textTransform: "none",
-            }}
-          >
-            {item.price}
-          </Typography>
+          <Box>
+            <Typography
+              color="textPrimary"
+              sx={{
+                fontSize: 14,
+                textTransform: "none",
+              }}
+            >
+              {item.name}
+            </Typography>
+            <Typography
+              color="textPrimary"
+              sx={{
+                fontSize: 12,
+                textTransform: "none",
+              }}
+            >
+              {formatter.toNumber(item.price)} ITPV
+            </Typography>
+          </Box>
         </Box>
       </Button>
     </Grid>

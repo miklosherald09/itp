@@ -17,7 +17,7 @@ export const PriceField = () => {
       render={({ field, fieldState }) => (
         <TextField
           {...field}
-          label="ITPV"
+          label="Price in (ITPV)"
           type="number"
           fullWidth
           error={!!fieldState.error}

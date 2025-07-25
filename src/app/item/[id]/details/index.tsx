@@ -5,6 +5,7 @@ import { Box, Typography, Container } from "@mui/material";
 import { useGetItem } from "@/services/items";
 import OfferButton from "./button/offer";
 import UserInfo from "./user-info";
+import ItpvPrice from "./itvp-price";
 
 type Props = {
   itemId: string;
@@ -29,7 +30,8 @@ export default function ItemDetails(props: Props) {
               width: "200px",
               height: "auto",
               objectFit: "cover",
-              maxHeight: "400px",
+              maxHeight: "200px",
+              borderRadius: "4px",
             }}
           />
         </Box>
@@ -43,6 +45,7 @@ export default function ItemDetails(props: Props) {
             </Typography>
           </Box>
           <UserInfo user={item?.user} createdAt={item?.createdAt} />
+          <ItpvPrice item={item} />
           <Box sx={{ mt: 2 }}>
             <OfferButton />
           </Box>
