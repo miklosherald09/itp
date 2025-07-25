@@ -1,9 +1,16 @@
 import { UserT } from "./user";
 
+export enum ItemTypeT {
+  product = "Product",
+  service = "Service",
+  money = "Money",
+  currency = "Currency",
+}
+
 export type ItemT = {
   id: number;
   userId: number;
-  type: string;
+  type: ItemTypeT;
   name: string;
   description?: string;
   price?: number;
@@ -15,7 +22,7 @@ export type ItemT = {
 };
 
 export type AddItemInputT = {
-  type: string;
+  type: ItemTypeT;
   name: string;
   description?: string;
   price: string;

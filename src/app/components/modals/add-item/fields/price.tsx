@@ -1,6 +1,6 @@
 "use client";
 
-import { MenuItem, TextField } from "@mui/material";
+import { TextField } from "@mui/material";
 import { Controller, useFormContext } from "react-hook-form";
 
 export const PriceField = () => {
@@ -17,7 +17,7 @@ export const PriceField = () => {
       render={({ field, fieldState }) => (
         <TextField
           {...field}
-          label="Price"
+          label="ITPV"
           type="number"
           fullWidth
           error={!!fieldState.error}

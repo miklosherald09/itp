@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { Typography } from "@mui/material";
+import SpaceDashboardIcon from "@mui/icons-material/SpaceDashboard";
 
 export default function Logo() {
   return (
@@ -11,7 +12,7 @@ export default function Logo() {
       href="/dashboard"
       sx={{ textDecoration: "none", color: "black", fontWeight: "bold" }}
     >
-      ITP
+      <SpaceDashboardIcon color="primary" />
     </Typography>
   );
 }

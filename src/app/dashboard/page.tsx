@@ -1,4 +1,3 @@
-import { ItemFormModal } from "./modal/add-item";
 import Divider from "../components/divider";
 import TopMenu from "../components/menu";
 import Items from "./items";
@@ -11,7 +10,6 @@ export default function Page() {
       <TopMenu />
       {/* <ActiveItems /> */}
       <Items />
-      <ItemFormModal />
     </Box>
   );
 }

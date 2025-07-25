@@ -3,22 +3,29 @@
 import { MenuItem, TextField } from "@mui/material";
 import { Controller, useFormContext } from "react-hook-form";
 
-export const NameField = () => {
+export const TypeField = () => {
   const { control } = useFormContext();
 
   return (
     <Controller
-      name="name"
+      name="type"
       control={control}
-      rules={{ required: "Name is required" }}
+      rules={{ required: "Type is required" }}
       render={({ field, fieldState }) => (
         <TextField
           {...field}
-          label="Name"
+          select
+          label="Type"
           fullWidth
           error={!!fieldState.error}
           helperText={fieldState?.error?.message}
-        />
+        >
+          {["Product", "Service"].map((option) => (
+            <MenuItem key={option} value={option}>
+              {option}
+            </MenuItem>
+          ))}
+        </TextField>
       )}
     />
   );

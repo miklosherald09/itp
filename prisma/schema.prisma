@@ -23,8 +23,10 @@ model User {
 }
 
 enum ItemType {
-  PRODUCT
-  SERVICE
+  Product
+  Service
+  Currency
+  Money
 }
 
 model Item {

@@ -7,6 +7,7 @@ import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { montserrat } from "@/utility/font";
 import theme from "@/mui/theme";
+import Modals from "./modals";
 
 export const metadata: Metadata = {
   title: "ITP",
@@ -34,6 +35,7 @@ export default async function RootLayout({
                 <AuthProviders>
                   <CssBaseline />
                   {children}
+                  <Modals />
                 </AuthProviders>
               </JotaiProvider>
             </ReactQueryProvider>

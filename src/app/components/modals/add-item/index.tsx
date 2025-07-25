@@ -2,7 +2,7 @@
 
 import { addItemAtom } from "@/jotai/atoms/modal";
 import { useAddItem, useGetUserItems } from "@/services/items";
-import { AddItemInputT, AddItemsParamsT } from "@/types/item";
+import { AddItemInputT, AddItemsParamsT, ItemTypeT } from "@/types/item";
 import { Box, Modal, Typography } from "@mui/material";
 import { useAtom, useAtomValue } from "jotai";
 import { FormProvider, useForm } from "react-hook-form";
@@ -10,15 +10,15 @@ import { NameField } from "./fields/name";
 import { TypeField } from "./fields/type";
 import { DescriptionField } from "./fields/description";
 import { PriceField } from "./fields/price";
-import { DurationField } from "./fields/duration";
 import { CancelButton } from "./buttons/cancel";
 import { SubmitButton } from "./buttons/submit";
 import { userAtom } from "@/jotai/atoms/users";
+import { ItpvInfoButton } from "./buttons/itpvInfo";
 
 export const ItemFormModal = () => {
-  const methods = useForm({
+  const methods = useForm<AddItemInputT>({
     defaultValues: {
-      type: "PRODUCT",
+      type: ItemTypeT.product,
       name: "",
       description: "",
       price: "",
@@ -57,7 +57,7 @@ export const ItemFormModal = () => {
 
   return (
     <Modal open={open} onClose={handleClose}>
-      <Box className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md mx-auto mt-20">
+      <Box className="bg-white p-6 rounded-lg shadow-lg w-full max-w-lg mx-auto mt-20">
         <Typography
           sx={{ color: "black", mb: 2, fontWeight: 600 }}
           className="mb-20"
@@ -66,21 +66,22 @@ export const ItemFormModal = () => {
         </Typography>
         <FormProvider {...methods}>
           <form onSubmit={methods.handleSubmit(onSubmit)}>
-            <Box sx={{ mt: 1 }}>
-              <TypeField />
-            </Box>
-            <Box sx={{ mt: 1 }}>
+            <Box sx={{ mt: 2 }}>
               <NameField />
             </Box>
-            <Box sx={{ mt: 1 }}>
+            <Box sx={{ mt: 2 }}>
               <DescriptionField />
             </Box>
-            <Box sx={{ mt: 1 }}>
+            <Box sx={{ display: "flex", mt: 2 }}>
               <PriceField />
+              <ItpvInfoButton />
             </Box>
-            <Box sx={{ mt: 1 }}>
+            <Box sx={{ mt: 2 }}>
+              <TypeField />
+            </Box>
+            {/* <Box sx={{ mt: 2 }}>
               <DurationField />
-            </Box>
+            </Box> */}
             <Box sx={{ mt: 2 }} className="flex justify-end space-x-2">
               <CancelButton />
               <Box sx={{ ml: 1 }}>
