@@ -4,7 +4,7 @@ import { Box, Button, Grid, Typography } from "@mui/material";
 import Image from "next/image";
 import { ItemT } from "@/types/item";
 import { useAtom } from "jotai";
-import { activeAtom } from "./atoms";
+import { activeItemsAtom } from "@/jotai/atoms/selected";
 import { useRouter } from "next/navigation";
 import formatter from "@/utility/formatter";
 
@@ -15,7 +15,7 @@ type Props = {
 export default function Item(props: Props) {
   const { item } = props;
 
-  const [items, setItem] = useAtom(activeAtom);
+  const [items, setItem] = useAtom(activeItemsAtom);
   const router = useRouter();
 
   const handleClick = () => {
@@ -25,7 +25,7 @@ export default function Item(props: Props) {
 
   return (
     <Grid>
-      <Button onClick={handleClick} sx={{ width: "100%" }}>
+      <Button onClick={handleClick} sx={{ pt: 0, pb: 1, px: 1, width: "100%" }}>
         <Box
           sx={{
             width: "100%",

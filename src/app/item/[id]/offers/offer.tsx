@@ -39,10 +39,10 @@ export default function Offer(props: Props) {
       <Box>
         {items?.map((item, i) => {
           return (
-            <>
-              <Item key={i} item={item?.item} />
+            <Box key={i}>
+              <Item item={item?.item} />
               <span>{i < items?.length - 1 ? " • " : ""}</span>
-            </>
+            </Box>
           );
         })}
       </Box>

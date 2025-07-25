@@ -7,7 +7,7 @@ import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
 import { Container } from "@mui/material";
 import { useAtomValue } from "jotai";
-import { activeAtom } from "../../dashboard/items/atoms";
+import { activeItemsAtom } from "@/jotai/atoms/selected";
 
 // const items: ListItem[] = [
 //   { id: 1, name: "T-Shirts", imageUrl: "https://i.pravatar.cc/150?img=1" },
@@ -20,7 +20,7 @@ import { activeAtom } from "../../dashboard/items/atoms";
 // ];
 
 export default function ActiveItems() {
-  const items = useAtomValue(activeAtom);
+  const items = useAtomValue(activeItemsAtom);
 
   return (
     <Container maxWidth="xl">

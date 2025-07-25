@@ -11,7 +11,7 @@ export default function TopMenu() {
   return (
     <AppBar
       position="sticky"
-      sx={{ bgcolor: "white", color: "gray.800", boxShadow: "sm" }}
+      sx={{ bgcolor: "white", color: "gray.800", boxShadow: "sm", mb: 4 }}
     >
       <Toolbar className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <Logo />

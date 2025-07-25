@@ -18,7 +18,7 @@ export default function ItemDetails(props: Props) {
   const item = itemData?.data;
 
   return (
-    <Container maxWidth="lg" sx={{ pt: 4 }}>
+    <Container maxWidth="lg">
       <Box sx={{ display: "flex", flexDirection: "column" }}>
         <Box sx={{ width: "100%", bgcolor: "#F8FAFC" }}>
           <Image

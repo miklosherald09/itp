@@ -27,6 +27,7 @@ export const useGetOfferByItemId = (itemId: number) => {
   return useQuery({
     queryKey: ["get-item-offers", itemId],
     queryFn: () => getOfferByItemId(itemId),
+    staleTime: 1000 * 30,
   });
 };
 

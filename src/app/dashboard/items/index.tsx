@@ -13,7 +13,7 @@ export default function Items() {
   const items = data?.data ?? [];
 
   return (
-    <Container maxWidth="lg" sx={{ mt: 4 }}>
+    <Container maxWidth="lg">
       <Grid container sx={{ height: "120px" }}>
         {items?.map((item, i) => {
           return <Item item={item} key={i} />;
